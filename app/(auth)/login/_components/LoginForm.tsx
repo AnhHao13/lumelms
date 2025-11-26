@@ -41,16 +41,33 @@ export function LoginForm() {
           type: "sign-in",
           fetchOptions: {
             onSuccess: () => {
-              toast.success("OTP sent to your email, please check your inbox.");
-              router.push(`/verify-request`);
+              toast.success("OTP sentd, please check your email.");
+              router.push(`/verify-request?email=${email}`);
             },
             onError: (error) => {
-              toast.error("Failed to send OTP, please try again.");
+              toast.error("Failed to send OTP");
             }
           }
         });
       });
     }
+    
+    // async function SignInWithEmail() {
+    //   startEmailTransition(async () => {
+    //     try {
+    //       await authClient.emailOtp.sendVerificationOtp({
+    //         email,
+    //         type: "sign-in",
+    //       });
+
+    //       toast.success("OTP sent, please check your email.");
+    //       router.push(`/verify-request?email=${email}`);
+    //     } catch (error) {
+    //       console.error(error);
+    //       toast.error("Failed to send OTP");
+    //     }
+    //   });
+    // }
 
     return (
     <Card>
