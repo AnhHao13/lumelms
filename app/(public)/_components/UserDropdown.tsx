@@ -22,9 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
-import { authClient } from "@/lib/auth-client"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
+import { useSignOut } from "@/hooks/use-signout"
 
 interface iAppDrop {
   name?: string;
@@ -33,22 +31,9 @@ interface iAppDrop {
 }
 
 export function UserDropdown({name, email, image}: iAppDrop) {
-  const router = useRouter();
   const displayName = name || email || "";
   const initial = displayName?.charAt(0)?.toUpperCase() || "";
-  async function signOut() {
-  await authClient.signOut({
-    fetchOptions: {
-      onSuccess: () => {
-        router.push("/login"); 
-        toast.success("Signed out successfully");
-      },
-      onError: () => {
-        toast.error("Error signing out");
-      }
-    },
-  });
-  }
+  const handelSignOut = useSignOut();
 
   return (
     <DropdownMenu>
@@ -90,7 +75,8 @@ export function UserDropdown({name, email, image}: iAppDrop) {
 
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/dashboard">
+            //<Link href="/dashboard">
+            <Link href="/admin"></Link>
               <LayoutDashboardIcon size={16} className="opacity-60" aria-hidden="true" />
               <span>Dashboard</span>
             </Link>
@@ -99,7 +85,7 @@ export function UserDropdown({name, email, image}: iAppDrop) {
         <DropdownMenuSeparator />
 
 
-        <DropdownMenuItem onClick={signOut}>
+        <DropdownMenuItem onClick={handelSignOut}>
           <LogOutIcon size={16} className="opacity-60" aria-hidden="true" />
           <span>Logout</span>
         </DropdownMenuItem>

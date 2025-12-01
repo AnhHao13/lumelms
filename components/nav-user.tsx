@@ -1,11 +1,9 @@
 "use client"
 
 import {
-  IconCreditCard,
+  IconDashboard,
   IconDotsVertical,
   IconLogout,
-  IconNotification,
-  IconUserCircle,
 } from "@tabler/icons-react"
 
 import {
@@ -29,10 +27,15 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { authClient } from "@/lib/auth-client"
+import Link from "next/link"
+import { HomeIcon, Tv2 } from "lucide-react"
+import { use } from "react"
+import { useSignOut } from "@/hooks/use-signout"
 
 export function NavUser() {
   const { isMobile } = useSidebar()
   const { data: session, isPending} = authClient.useSession();
+  const handelSignOut = useSignOut();
 
   if (isPending) {
     return null;
@@ -103,21 +106,27 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUserCircle />
-                Account
+              <DropdownMenuItem asChild>
+                <Link href="/">
+                  <HomeIcon />
+                  Homepage                
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
+              <DropdownMenuItem asChild>
+                <Link href="/admin">
+                  <IconDashboard />
+                  Dashboard
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconNotification />
-                Notifications
+              <DropdownMenuItem asChild>
+                <Link href="/admin/courses">
+                  <Tv2 />
+                  Courses
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handelSignOut}>
               <IconLogout />
               Log out
             </DropdownMenuItem>
