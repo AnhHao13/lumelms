@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 import { file } from "zod";
 import { fa } from "zod/v4/locales";
+import { on } from "events";
 
 interface UploaderState {
   id: string | null;
@@ -37,10 +38,10 @@ export function Uploader({onChange, value}: iAppProps) {
     file: null,
     uploading: false,
     progress: 0,
-    key: undefined,
     isDeleting: false,
     error: false,
     fileType: "image",
+    key: value,
   });
 
   async function uploadFile(file: File) {
@@ -98,7 +99,11 @@ export function Uploader({onChange, value}: iAppProps) {
               uploading: false,
               key: key,
             }));
+
+            onChange?.(key);
+
             toast.success("File uploaded successfully");
+
             resolve();
           } else {
             reject(new Error("Upload failed"));
@@ -181,6 +186,8 @@ export function Uploader({onChange, value}: iAppProps) {
       if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")) {
         URL.revokeObjectURL(fileState.objectUrl);
       }
+
+      onChange?.(""); 
 
       setFileState(() => ({
         file: null,

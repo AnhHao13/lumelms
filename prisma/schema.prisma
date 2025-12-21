@@ -1,3 +1,8 @@
+datasource db {
+  provider = "postgresql" // hoặc mysql / sqlite / sqlserver
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
@@ -97,5 +102,3 @@ enum CourseStatus {
   Published
   Archived
 }
-
-//5:27
