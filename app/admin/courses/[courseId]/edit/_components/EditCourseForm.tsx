@@ -35,7 +35,7 @@ import { tryCatch } from "@/hooks/try-catch";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader2, PlusIcon, SparkleIcon } from "lucide-react";
-import { editCourse } from "../action";
+import { editCourse } from "../actions";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 
 interface iAppProps {
@@ -165,7 +165,11 @@ export function EditCourseForm({ data }: iAppProps) {
             <FormItem className="w-full">
               <FormLabel>Thumpnail image</FormLabel>
               <FormControl>
-                <Uploader onChange={field.onChange} value={field.value} />
+                <Uploader
+                  fileTypeAccepted="image"
+                  onChange={field.onChange}
+                  value={field.value}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
