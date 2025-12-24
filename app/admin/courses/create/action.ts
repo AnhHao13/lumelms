@@ -30,6 +30,7 @@ export async function CreateCourse(
   try {
     const req = await request();
     const decision = await aj.protect(req, { fingerprint: session.user.id });
+
     if (decision.isDenied()) {
       if (decision.reason.isRateLimit()) {
         return {

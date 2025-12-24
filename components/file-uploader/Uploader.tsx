@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { file } from "zod";
 import { fa } from "zod/v4/locales";
 import { on } from "events";
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 interface UploaderState {
   id: string | null;
@@ -28,11 +29,12 @@ interface UploaderState {
 }
 
 interface iAppProps {
-    value?: string;
-    onChange?: (value:string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-export function Uploader({onChange, value}: iAppProps) {
+export function Uploader({ onChange, value }: iAppProps) {
+  const fileUrl = useConstructUrl(value || "");
   const [fileState, setFileState] = useState<UploaderState>({
     id: null,
     file: null,
@@ -42,6 +44,7 @@ export function Uploader({onChange, value}: iAppProps) {
     error: false,
     fileType: "image",
     key: value,
+    objectUrl: fileUrl,
   });
 
   async function uploadFile(file: File) {
@@ -187,7 +190,7 @@ export function Uploader({onChange, value}: iAppProps) {
         URL.revokeObjectURL(fileState.objectUrl);
       }
 
-      onChange?.(""); 
+      onChange?.("");
 
       setFileState(() => ({
         file: null,
