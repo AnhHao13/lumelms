@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         port: "",
         protocol: "https",
       },
+      {
+        hostname: "lume-lms-video.t3.storageapi.dev",
+        port: "",
+        protocol: "https",
+      },
     ],
   },
 };

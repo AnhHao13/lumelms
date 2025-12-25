@@ -45,7 +45,7 @@ export function AdminCourseCard({ data }: iAppProps) {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href={`/courses/${data.slug}`}>
+              <Link href={`/courses/${data.id}`}>
                 <Eye className="size-4 mr-2" />
                 Preview
               </Link>
@@ -54,7 +54,7 @@ export function AdminCourseCard({ data }: iAppProps) {
             <DropdownMenuSeparator />
 
             <DropdownMenuItem asChild>
-              <Link href={`/admin/courses/${data.slug}/delete`}>
+              <Link href={`/admin/courses/${data.id}/delete`}>
                 <Trash2 className="size-4 mr-2 text-destructive" />
                 Delete
               </Link>
